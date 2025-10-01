@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Accueil — BABYBANKHOLDER</title>
+  <title>Accueil — Babybankholder</title>
   <style>
     /* Reset simple */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html,body { height: 100%; }
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: #fff;
       display: flex;
       align-items: center;
@@ -63,7 +63,7 @@
       border-radius: 10px;
       font-weight: 600;
       transition: transform .12s ease, background .12s ease, border .12s ease;
-      pointer-events: auto;
+      cursor: pointer;
     }
     .btn:hover { 
       transform: translateY(-3px); 
@@ -112,11 +112,38 @@
       </a>
     </div>
 
+    <!-- Bouton Copier l'adresse du contract -->
+    <div style="margin-top:1.5rem;">
+      <button class="btn" id="copyContractBtn" aria-label="Copier l'adresse du contract">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+        </svg>
+        <span>Copier l’adresse du contract</span>
+      </button>
+      <span id="copyMsg" style="margin-left:0.5rem; opacity:0.9; font-size:0.9rem;"></span>
+    </div>
+
     <div class="credit">© <span id="year"></span> Babybankholder</div>
   </main>
 
   <script>
+    // Met l'année courante dans le pied
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fonction copier adresse contract
+    const contractAddress = "0xTON_ADRESSE_ICI"; // <-- Remplace par ton adresse de token
+    const copyBtn = document.getElementById("copyContractBtn");
+    const copyMsg = document.getElementById("copyMsg");
+
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(contractAddress).then(() => {
+        copyMsg.textContent = "Copié ! ✅";
+        setTimeout(() => copyMsg.textContent = "", 2000);
+      }).catch(() => {
+        copyMsg.textContent = "Échec de la copie ❌";
+        setTimeout(() => copyMsg.textContent = "", 2000);
+      });
+    });
   </script>
 </body>
 </html>
