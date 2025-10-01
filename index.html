@@ -133,7 +133,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
         </svg>
-        <span>Copier l’adresse du contract</span>
+        <span>Copy the contract address</span>
       </button>
       <span id="copyMsg" style="opacity:0.9; font-size:0.9rem;"></span>
     </div>
@@ -154,7 +154,7 @@
     // Copier automatiquement
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(contractAddress).then(() => {
-        copyMsg.textContent = "Copié ! ✅";
+        copyMsg.textContent = "Copy ! ✅";
         setTimeout(() => copyMsg.textContent = "", 2000);
       }).catch(() => {
         copyMsg.textContent = "Échec de la copie ❌";
