@@ -74,6 +74,20 @@
 
     .credit { margin-top: 1.2rem; opacity: 0.8; font-size: 0.9rem; }
 
+    input.contract-field {
+      padding:0.5rem 0.75rem;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color:#fff;
+      font-family: monospace;
+      font-size:0.95rem;
+      width:100%;
+      max-width:400px;
+      text-align:center;
+      cursor:text;
+    }
+
     @media (max-width:480px){
       .btn { font-size: 0.95rem; padding: 0.5rem 0.75rem; border-radius: 8px; }
     }
@@ -112,15 +126,16 @@
       </a>
     </div>
 
-    <!-- Bouton Copier l'adresse du contract -->
-    <div style="margin-top:1.5rem;">
+    <!-- Champ adresse du contract + bouton copie -->
+    <div style="margin-top:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.5rem;">
+      <input type="text" class="contract-field" id="contractAddressField" value="0xTON_ADRESSE_ICI" readonly />
       <button class="btn" id="copyContractBtn" aria-label="Copier l'adresse du contract">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
         </svg>
         <span>Copier l’adresse du contract</span>
       </button>
-      <span id="copyMsg" style="margin-left:0.5rem; opacity:0.9; font-size:0.9rem;"></span>
+      <span id="copyMsg" style="opacity:0.9; font-size:0.9rem;"></span>
     </div>
 
     <div class="credit">© <span id="year"></span> Babybankholder</div>
@@ -130,11 +145,13 @@
     // Met l'année courante dans le pied
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Fonction copier adresse contract
-    const contractAddress = "0xTON_ADRESSE_ICI"; // <-- Remplace par ton adresse de token
+    // Adresse du contract
+    const contractAddress = "0xTON_ADRESSE_ICI"; // <-- Remplace par ton adresse
     const copyBtn = document.getElementById("copyContractBtn");
     const copyMsg = document.getElementById("copyMsg");
+    const contractField = document.getElementById("contractAddressField");
 
+    // Copier automatiquement
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(contractAddress).then(() => {
         copyMsg.textContent = "Copié ! ✅";
@@ -143,6 +160,11 @@
         copyMsg.textContent = "Échec de la copie ❌";
         setTimeout(() => copyMsg.textContent = "", 2000);
       });
+    });
+
+    // Sélection automatique au clic pour copie manuelle
+    contractField.addEventListener("click", () => {
+      contractField.select();
     });
   </script>
 </body>
